@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pathshala Live | Live classes with real teachers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.7/dist/livekit-client.umd.min.js"></script>
+<style>
+:root{--board:#12352c;--board2:#0c2720;--chalk:#eef3ef;--ink:#10201b;--muted:#5a6a63;--pencil:#ffc93c;--line:#d3ddd7;--live:#e5484d;--white:#fff}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Hind,system-ui,sans-serif;background:var(--chalk);color:var(--ink);font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:'Bricolage Grotesque',Georgia,sans-serif;line-height:1.08;letter-spacing:-.02em}
+[hidden]{display:none!important}
+button,input{font:inherit}
+:focus-visible{outline:3px solid var(--pencil);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* top bar */
+.top{background:var(--board);color:var(--chalk)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center}
+.brand i{width:14px;height:14px;background:var(--pencil);border-radius:3px;display:inline-block;transform:rotate(12deg)}
+.who{display:flex;gap:14px;align-items:center;font-size:15px}
+.btn{border:0;border-radius:8px;padding:12px 20px;font-weight:600;cursor:pointer;background:var(--pencil);color:var(--ink)}
+.btn:hover{filter:brightness(.95)}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor;padding:8px 14px}
+.btn.dark{background:var(--board);color:var(--chalk)}
+.btn.red{background:var(--live);color:#fff}
+/* hero */
+.hero{background:var(--board);color:var(--chalk);background-image:repeating-linear-gradient(transparent 0 47px,rgba(255,255,255,.05) 47px 48px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;padding-top:64px;padding-bottom:72px;align-items:center}
+.hero h1{font-size:clamp(38px,5.4vw,64px);font-weight:800;margin-bottom:18px}
+.hero p.lead{font-size:19px;color:#c4d4cb;max-width:46ch;margin-bottom:28px}
+.card{background:var(--white);color:var(--ink);border-radius:14px;padding:26px;max-width:440px}
+.card h2{font-size:24px;margin-bottom:14px}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
+input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;background:#fbfdfb}
+input:focus{border-color:var(--board);outline:none;box-shadow:0 0 0 3px rgba(255,201,60,.55)}
+.card .btn{width:100%;margin-top:18px}
+.err{color:#b42318;font-size:15px;margin-top:10px;min-height:22px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.chip{border:1px solid var(--line);background:#f3f7f4;border-radius:999px;padding:4px 12px;font-size:14px;cursor:pointer}
+/* timetable board */
+.board{background:var(--board2);border:2px solid #355c50;border-radius:12px;padding:22px 22px 8px;box-shadow:0 0 0 8px #6b4a2b}
+.board h3{font-size:20px;color:var(--pencil);margin-bottom:6px}
+.board small{color:#9fb7ab}
+.row{display:grid;grid-template-columns:92px 1fr;gap:14px;padding:14px 0;border-top:1px dashed #3d6759}
+.row b{font-family:'Bricolage Grotesque',sans-serif;color:var(--pencil);font-size:17px}
+.row span{display:block;font-size:14px;color:#9fb7ab}
+.live{display:inline-flex;align-items:center;gap:6px;color:#ff9a9d;font-size:13px;font-weight:600;margin-left:8px}
+.live:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--live);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.live:before{animation:none}}
+/* sections */
+section.pad{padding:68px 0}
+section h2.t{font-size:clamp(28px,3.6vw,40px);margin-bottom:28px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:s}
+.steps div{border-top:3px solid var(--board);padding-top:14px}
+.steps div:before{counter-increment:s;content:counter(s);font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;color:var(--board)}
+.steps h3{font-size:21px;margin:4px 0 6px}
+.steps p{color:var(--muted);max-width:34ch}
+footer{background:var(--board2);color:#9fb7ab;padding:26px 0;font-size:15px}
+/* dashboard */
+.dash{padding:44px 0 80px}
+.dash h1{font-size:clamp(30px,4vw,44px);margin-bottom:6px}
+.dash .sub{color:var(--muted);margin-bottom:28px}
+.tt{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tr{display:grid;grid-template-columns:190px 1fr auto;gap:20px;align-items:center;padding:20px 24px;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+.tr .tm{font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;color:var(--board)}
+.tr h3{font-size:21px;margin-bottom:2px}
+.tr p{color:var(--muted);font-size:15px}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+/* room */
+.room{background:var(--board2);color:var(--chalk);min-height:calc(100vh - 64px)}
+.rhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px;flex-wrap:wrap}
+.rhead h2{font-size:22px}
+.rmain{display:grid;grid-template-columns:1fr 320px;gap:16px;padding:0 24px 24px}
+.stage{background:#06140f;border-radius:12px;min-height:60vh;display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:center;position:relative;overflow:hidden}
+.stage video{width:100%;max-height:70vh;background:#000;object-fit:contain}
+.wait{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:#9fb7ab;padding:20px}
+.wait h3{color:var(--chalk);font-size:24px;margin-bottom:6px}
+.chat{background:#0f2f26;border-radius:12px;display:flex;flex-direction:column;height:70vh;min-height:360px}
+.chat h3{font-size:17px;padding:14px 16px;border-bottom:1px solid #2a4f43}
+.msgs{flex:1;overflow:auto;padding:12px 16px;font-size:15px}
+.msgs p{margin-bottom:10px}.msgs b{color:var(--pencil)}
+.chat form{display:flex;gap:8px;padding:12px;border-top:1px solid #2a4f43}
+.chat input{background:#0c2720;color:var(--chalk);border-color:#2a4f43}
+.chat .btn{padding:10px 14px;width:auto;margin:0}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:8px;z-index:9;max-width:90vw}
+@media(max-width:860px){
+ .hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:40px}
+ .steps{grid-template-columns:1fr}
+ .tr{grid-template-columns:1fr;gap:8px}
+ .rmain{grid-template-columns:1fr}.chat{height:320px}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><i></i>Pathshala Live</div>
+  <div class="who" id="who" hidden><span id="whoName"></span><button class="btn ghost" id="out">Sign out</button></div>
+</div></header>
+
+<main id="home">
+  <div class="hero"><div class="wrap">
+    <div>
+      <h1>Your class starts at 6 PM. Join from home.</h1>
+      <p class="lead">Live lessons in maths, physics, English and Python. See your teacher, ask questions in chat, and never miss a class.</p>
+      <form class="card" id="loginForm">
+        <h2>Sign in to your classes</h2>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <div class="chips">
+          <button type="button" class="chip" data-e="anil@student.com" data-p="student123">Try as student</button>
+          <button type="button" class="chip" data-e="ravi@school.com" data-p="teacher123">Try as teacher</button>
+        </div>
+        <div class="err" id="loginErr" role="alert"></div>
+        <button class="btn" type="submit">Sign in</button>
+      </form>
+    </div>
+    <div class="board" aria-label="This week's timetable">
+      <h3>This week's timetable</h3><small>All times in IST</small>
+      <div class="row"><b>6:00 PM</b><div>Class 10 Maths <em class="live">Live now</em><span>Algebra basics with Ravi Kumar</span></div></div>
+      <div class="row"><b>5:00 PM</b><div>Physics: Motion and Force<span>Tue and Thu with Priya Sharma</span></div></div>
+      <div class="row"><b>7:30 AM</b><div>Spoken English<span>Monday to Friday with Arjun Reddy</span></div></div>
+      <div class="row"><b>11:00 AM</b><div>Python for Beginners<span>Saturday and Sunday with Arjun Reddy</span></div></div>
+    </div>
+  </div></div>
+  <section class="pad"><div class="wrap">
+    <h2 class="t">Joining a class takes three steps</h2>
+    <div class="steps">
+      <div><h3>Sign in</h3><p>Use the email and password your school gave you.</p></div>
+      <div><h3>Pick your class</h3><p>Your timetable shows only the classes you are enrolled in.</p></div>
+      <div><h3>Join live</h3><p>Allow nothing extra. Students just watch and chat. Teachers share camera, mic and screen.</p></div>
+    </div>
+  </div></section>
+  <footer><div class="wrap">Pathshala Live. Questions about your login? Ask your teacher or school admin.</div></footer>
+</main>
+
+<main id="dash" class="dash" hidden><div class="wrap">
+  <h1 id="hello"></h1><p class="sub" id="subline"></p>
+  <div class="tt" id="tt"></div>
+</div></main>
+
+<main id="room" class="room" hidden>
+  <div class="rhead">
+    <div><h2 id="rtitle"></h2><small id="rcount" style="color:#9fb7ab"></small></div>
+    <div class="ctrl">
+      <span id="tools" class="ctrl" hidden>
+        <button class="btn ghost" id="bMic">Mute mic</button>
+        <button class="btn ghost" id="bCam">Stop camera</button>
+        <button class="btn ghost" id="bShare">Share screen</button>
+      </span>
+      <button class="btn red" id="bLeave">Leave class</button>
+    </div>
+  </div>
+  <div class="rmain">
+    <div class="stage" id="stage"><div class="wait" id="wait"><div><h3>Waiting for the teacher</h3><p>The video appears here as soon as the class starts.</p></div></div></div>
+    <aside class="chat"><h3>Class chat</h3><div class="msgs" id="msgs"></div>
+      <form id="chatForm"><input id="chatIn" placeholder="Type a message" maxlength="300" autocomplete="off"><button class="btn" type="submit">Send</button></form>
+    </aside>
+  </div>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+let jwt='',me=null,room=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const show=v=>{['home','dash','room'].forEach(x=>$('#'+x).hidden=x!==v);window.scrollTo(0,0)};
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),4500)}
+async function api(p,m='GET',b){
+  const r=await fetch(p,{method:m,headers:{'Content-Type':'application/json',Authorization:'Bearer '+jwt},body:b?JSON.stringify(b):undefined});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||'Something went wrong. Try again.');
+  return d;
+}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{$('#email').value=c.dataset.e;$('#password').value=c.dataset.p});
+$('#loginForm').onsubmit=async e=>{
+  e.preventDefault();$('#loginErr').textContent='';
+  try{
+    const d=await api('/api/login','POST',{email:$('#email').value.trim(),password:$('#password').value});
+    jwt=d.token;me=d;$('#whoName').textContent=d.name+' ('+d.role+')';$('#who').hidden=false;
+    await loadDash();
+  }catch(err){$('#loginErr').textContent=err.message==='Invalid login'?'Email or password is wrong. Check both and try again.':err.message}
+};
+$('#out').onclick=()=>{if(room)room.disconnect();jwt='';me=null;$('#who').hidden=true;$('#loginForm').reset();show('home')};
+async function loadDash(){
+  const list=await api('/api/classes');
+  const t=me.role==='teacher';
+  $('#hello').textContent='Hello, '+me.name.split(' ')[0];
+  $('#subline').textContent=t?'Your classes. Start one when it is time.':'Your timetable. Join when your class is live.';
+  $('#tt').innerHTML=list.length?list.map(c=>`<div class="tr">
+    <div class="tm">${esc(c.time||c.schedule||'')}</div>
+    <div><h3>${esc(c.title)}</h3><p>${esc(c.description||'')}${c.teacher?' &nbsp;Teacher: '+esc(c.teacher):''}</p></div>
+    <button class="btn dark" data-id="${esc(c.id)}" data-t="${esc(c.title)}">${t?'Start class':'Join class'}</button></div>`).join('')
+    :'<div class="empty">You are not enrolled in any class yet. Ask your school admin to add you.</div>';
+  document.querySelectorAll('#tt .btn').forEach(b=>b.onclick=()=>join(b.dataset.id,b.dataset.t,b));
+  show('dash');
+}
+function addMsg(n,t){const p=document.createElement('p');p.innerHTML='<b>'+esc(n)+':</b> '+esc(t);$('#msgs').append(p);$('#msgs').scrollTop=1e9}
+function sync(){if(!room)return;$('#rcount').textContent=(room.remoteParticipants.size+1)+' in class';
+  $('#wait').hidden=$('#stage').querySelector('video')!==null}
+async function join(id,title,btn){
+  btn.disabled=true;btn.textContent='Joining...';
+  try{
+    const {token,url,isTeacher}=await api('/api/classes/'+id+'/join','POST');
+    const L=LivekitClient,E=L.RoomEvent;
+    room=new L.Room({adaptiveStream:true,dynacast:true});
+    $('#stage').querySelectorAll('video').forEach(v=>v.remove());$('#msgs').innerHTML='';
+    $('#rtitle').textContent=title;$('#tools').hidden=!isTeacher;
+    room.on(E.TrackSubscribed,t=>{const el=t.attach();if(t.kind==='video')$('#stage').append(el);else document.body.append(el);sync()})
+        .on(E.TrackUnsubscribed,t=>{t.detach().forEach(e=>e.remove());sync()})
+        .on(E.LocalTrackPublished,p=>{if(p.track&&p.track.kind==='video'){$('#stage').append(p.track.attach());sync()}})
+        .on(E.LocalTrackUnpublished,p=>{if(p.track)p.track.detach().forEach(e=>e.remove());sync()})
+        .on(E.ParticipantConnected,sync).on(E.ParticipantDisconnected,sync)
+        .on(E.DataReceived,pl=>{try{const m=JSON.parse(new TextDecoder().decode(pl));addMsg(m.n,m.t)}catch{}})
+        .on(E.Disconnected,()=>{room=null;show(me?'dash':'home')});
+    await room.connect(url,token);
+    show('room');sync();
+    if(isTeacher)await room.localParticipant.enableCameraAndMicrophone();
+  }catch(err){
+    toast(/token/i.test(err.message)?'LiveKit rejected the sign-in. Check the API key and secret in .env, then restart the server.':err.message);
+  }finally{btn.disabled=false;btn.textContent=me.role==='teacher'?'Start class':'Join class'}
+}
+$('#bLeave').onclick=()=>room&&room.disconnect();
+const lp=()=>room.localParticipant;
+$('#bMic').onclick=async e=>{const on=lp().isMicrophoneEnabled;await lp().setMicrophoneEnabled(!on);e.target.textContent=on?'Unmute mic':'Mute mic'};
+$('#bCam').onclick=async e=>{const on=lp().isCameraEnabled;await lp().setCameraEnabled(!on);e.target.textContent=on?'Start camera':'Stop camera'};
+$('#bShare').onclick=async e=>{const on=lp().isScreenShareEnabled;try{await lp().setScreenShareEnabled(!on);e.target.textContent=on?'Share screen':'Stop sharing'}catch{toast('Screen sharing was cancelled.')}};
+$('#chatForm').onsubmit=async e=>{
+  e.preventDefault();const t=$('#chatIn').value.trim();if(!t||!room)return;
+  await lp().publishData(new TextEncoder().encode(JSON.stringify({n:me.name,t})),{reliable:true});
+  addMsg('You',t);$('#chatIn').value='';
+};
+</script>
+</body>
+</html>
