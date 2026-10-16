@@ -35,15 +35,46 @@ button,input{font:inherit}
 .btn.hand-up{background:var(--lime);color:var(--ink)}
 .hero{background:var(--forest);color:var(--white);overflow:hidden;position:relative}
 .hero:before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:rgba(216,239,138,.08);right:-170px;top:-270px}
-.hero .wrap{display:grid;grid-template-columns:1fr .84fr;gap:clamp(44px,8vw,110px);padding-top:76px;padding-bottom:82px;align-items:center;position:relative}
+.hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,82px);padding-top:72px;padding-bottom:78px;align-items:center;position:relative}
 .hero-copy{max-width:570px}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--lime);margin-bottom:20px}
 .eyebrow:before{content:"";width:25px;height:1px;background:currentColor}
-.hero h1{font-size:clamp(46px,6.4vw,76px);font-weight:800;max-width:10ch;margin-bottom:20px}
+.hero h1{font-size:clamp(48px,6vw,72px);font-weight:800;max-width:10ch;margin-bottom:20px}
 .hero h1 em{font-style:normal;color:var(--lime)}
 .hero p.lead{font-size:18px;color:#d1ddd5;max-width:42ch;margin-bottom:28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero-actions .btn{background:var(--lime);color:var(--forest-dark);text-decoration:none}
+.hero-actions .btn.alt{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.45)}
 .hero-note{font-size:13px;color:#c1d0c7;margin-top:16px}
-.card{background:var(--white);color:var(--ink);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:30px;max-width:440px;box-shadow:0 24px 64px rgba(11,32,25,.24)}
+.hero-art{min-height:420px;position:relative;display:grid;place-items:center}
+.orbit{position:absolute;width:min(36vw,390px);aspect-ratio:1;border:1px solid rgba(216,239,138,.22);border-radius:50%;right:5%;top:4%}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(216,239,138,.18);border-radius:50%;inset:10%}
+.orbit:after{inset:22%}
+.lesson-window{z-index:1;position:relative;width:min(100%,470px);background:#fffefa;border-radius:20px;padding:12px;box-shadow:0 28px 70px rgba(9,28,21,.35);transform:rotate(2deg)}
+.lesson-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 11px;font-size:11px;color:var(--muted)}
+.lesson-dots{display:flex;gap:4px}
+.lesson-dots i{width:6px;height:6px;border-radius:50%;background:#d9ddd5}
+.lesson-screen{height:244px;border-radius:13px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 70% 22%,rgba(255,222,161,.9),transparent 25%),linear-gradient(145deg,#b9d7c1,#6d9b81 57%,#345f50)}
+.lesson-screen:before{content:"";position:absolute;width:200px;height:110px;background:#e9d4b5;border-radius:50% 50% 8px 8px;bottom:-26px;left:50%;transform:translateX(-50%)}
+.teacher-head{position:absolute;z-index:1;width:70px;height:82px;left:50%;top:45px;transform:translateX(-50%);border-radius:48% 48% 44% 44%;background:radial-gradient(ellipse at 50% 35%,#f0c59d 0 40%,transparent 42%),radial-gradient(ellipse at 50% 15%,#3f332c 0 44%,transparent 46%)}
+.teacher-body{position:absolute;z-index:1;width:128px;height:105px;left:50%;bottom:-38px;transform:translateX(-50%);border-radius:50% 50% 0 0;background:#d96b53}
+.chalkboard{position:absolute;left:7%;top:22%;width:34%;height:62%;border:7px solid #8e6848;background:#284e40;color:#f7f5ef;padding:12px 10px;font-family:Georgia,serif;font-size:13px;line-height:1.55;transform:rotate(-2deg)}
+.chalkboard b{display:block;color:#d8ef8a;font-size:16px;font-weight:400}
+.lesson-label{position:absolute;z-index:2;left:14px;top:14px;color:white;background:var(--coral);border-radius:999px;padding:5px 10px;font-size:10px;font-weight:600;letter-spacing:.08em}
+.lesson-live{position:absolute;z-index:2;right:12px;bottom:12px;color:white;background:rgba(23,37,31,.76);border-radius:999px;padding:6px 10px;font-size:10px}
+.lesson-bottom{display:flex;justify-content:space-between;align-items:center;padding:12px 4px 2px;gap:10px}
+.lesson-bottom strong{display:block;font-family:'Bricolage Grotesque';font-size:15px}
+.lesson-bottom small{font-size:11px;color:var(--muted)}
+.avatar-stack{display:flex;padding-left:7px}
+.avatar-stack i{width:27px;height:27px;border:2px solid var(--white);border-radius:50%;margin-left:-7px;background:linear-gradient(135deg,#f1b98f 0 48%,#23483d 49%)}
+.avatar-stack i:nth-child(2){background:linear-gradient(135deg,#d2a17e 0 48%,#db6650 49%)}
+.avatar-stack i:nth-child(3){background:linear-gradient(135deg,#e4c09e 0 48%,#6d85a1 49%)}
+.float-note{position:absolute;z-index:2;background:var(--lime);color:var(--forest-dark);border-radius:13px;padding:12px 16px;box-shadow:0 12px 30px rgba(9,28,21,.24);font-size:12px;font-weight:600}
+.float-note b{display:block;font-family:'Bricolage Grotesque';font-size:18px}
+.float-note.top-note{top:12%;right:1%;transform:rotate(5deg)}
+.float-note.bottom-note{bottom:7%;left:1%;transform:rotate(-5deg);background:var(--white)}
+.float-note.bottom-note b{color:var(--coral)}
+.card{background:var(--white);color:var(--ink);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:30px;max-width:440px;box-shadow:var(--shadow)}
 .card-kicker{color:var(--coral);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
 .card h2{font-size:27px;margin-bottom:6px}
 .card-intro{font-size:14px;color:var(--muted);margin-bottom:18px}
@@ -55,7 +86,7 @@ input:focus{border-color:var(--forest);outline:none;box-shadow:0 0 0 3px rgba(35
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .chip{border:1px solid var(--line);background:#f7f5ef;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;color:var(--forest)}
 .chip:hover{background:var(--blush)}
-.board{background:var(--white);color:var(--ink);border:1px solid rgba(255,255,255,.5);border-radius:24px;padding:26px 28px 12px;box-shadow:0 22px 60px rgba(11,32,25,.2);transform:rotate(1deg)}
+.board{background:var(--white);color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:24px 26px 10px;box-shadow:var(--shadow)}
 .board-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
 .board h3{font-size:22px;color:var(--ink);margin-bottom:5px}
 .board small{color:var(--muted)}
@@ -71,6 +102,10 @@ input:focus{border-color:var(--forest);outline:none;box-shadow:0 0 0 3px rgba(35
 .trust .wrap{display:flex;justify-content:center;gap:clamp(22px,5vw,70px);align-items:center;padding-top:17px;padding-bottom:17px;flex-wrap:wrap}
 .trust span{font-size:13px;font-weight:600}
 .trust strong{font-family:'Bricolage Grotesque';font-size:17px}
+.hub{background:#eeeee5}
+.hub-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:start}
+.hub .card{max-width:none;padding:30px}
+.hub .section-head{margin-bottom:26px}
 section.pad{padding:76px 0}
 .section-head{max-width:580px;margin-bottom:32px}
 .section-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:600;margin-bottom:10px}
@@ -120,7 +155,13 @@ footer{background:var(--forest-dark);color:#d1ddd5;padding:27px 0;font-size:14px
 @media(max-width:860px){
  .hero .wrap{grid-template-columns:1fr;gap:38px;padding-top:54px;padding-bottom:58px}
  .hero-copy{max-width:640px}
- .board{transform:none;max-width:600px;width:100%}
+ .hero h1{max-width:16ch;font-size:clamp(42px,8vw,60px)}
+ .hero-art{min-height:330px}
+ .lesson-window{max-width:500px}
+ .lesson-screen{height:210px}
+ .board{max-width:600px;width:100%}
+ .hub-grid{grid-template-columns:1fr}
+ .hub .card{max-width:600px}
  .steps{grid-template-columns:1fr}
  .steps div{min-height:0}
  .steps h3{margin-top:14px}
@@ -133,6 +174,16 @@ footer{background:var(--forest-dark);color:#d1ddd5;padding:27px 0;font-size:14px
  .brand{font-size:20px}
  .hero .wrap{padding-top:42px;padding-bottom:46px}
  .hero h1{font-size:clamp(42px,12vw,60px)}
+ .hero-art{min-height:300px;margin:0 -6px}
+ .lesson-window{padding:8px;border-radius:15px}
+ .lesson-screen{height:190px}
+ .chalkboard{font-size:10px;padding:9px 6px}
+ .chalkboard b{font-size:12px}
+ .teacher-head{top:42px;transform:translateX(-30%);width:58px;height:68px}
+ .teacher-body{transform:translateX(-30%);width:108px}
+ .float-note.top-note{right:1%;top:5%}
+ .float-note.bottom-note{left:1%;bottom:1%}
+ .orbit{width:75vw;right:4%}
  .card{padding:23px}
  .board{padding:21px 19px 10px}
  .trust .wrap{justify-content:flex-start;gap:12px 26px}
@@ -165,6 +216,32 @@ footer{background:var(--forest-dark);color:#d1ddd5;padding:27px 0;font-size:14px
       <div class="eyebrow">A better way to learn together</div>
       <h1>Big ideas.<br><em>Live</em> classrooms.</h1>
       <p class="lead">Live lessons in maths, physics, English and Python. See your teacher, ask questions in chat, and never miss a class.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#loginForm">Enter your classroom <span aria-hidden="true">→</span></a>
+        <a class="btn alt" href="#how-it-works">Explore Pathshala</a>
+      </div>
+      <p class="hero-note">For students and teachers · Join from anywhere</p>
+    </div>
+    <div class="hero-art" aria-label="Illustration of a teacher leading a live lesson">
+      <div class="orbit"></div>
+      <div class="lesson-window">
+        <div class="lesson-bar"><span class="lesson-dots"><i></i><i></i><i></i></span><span>PATHSHALA CLASSROOM</span><span>•••</span></div>
+        <div class="lesson-screen">
+          <span class="lesson-label">● LIVE LESSON</span>
+          <div class="chalkboard"><b>Algebra</b>x + 4 = 12<br>x = 12 − 4<br>x = 8 ✓</div>
+          <div class="teacher-head"></div><div class="teacher-body"></div>
+          <span class="lesson-live">Ravi Kumar · Maths</span>
+        </div>
+        <div class="lesson-bottom"><div><strong>Class 10 · Algebra basics</strong><small>Learn it together, live</small></div><div class="avatar-stack" aria-label="Students in class"><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="float-note top-note"><b>Live now</b>Maths with Ravi</div>
+      <div class="float-note bottom-note"><b>4.9 / 5</b>Learning together</div>
+    </div>
+  </div></div>
+  <div class="trust"><div class="wrap"><strong>Learn from anywhere</strong><span>Live video lessons</span><span>Ask questions in chat</span><span>One simple sign in</span></div></div>
+  <section class="pad hub" id="class-sign-in"><div class="wrap">
+    <div class="section-head"><div class="section-label">Your next lesson awaits</div><h2 class="t">Everything you need to get into class.</h2></div>
+    <div class="hub-grid">
       <form class="card" id="loginForm">
         <div class="card-kicker">Welcome back</div>
         <h2>Go to your classroom</h2>
@@ -178,18 +255,17 @@ footer{background:var(--forest-dark);color:#d1ddd5;padding:27px 0;font-size:14px
           <button type="button" class="chip" data-e="ravi@school.com" data-p="teacher123">Try as teacher</button>
         </div>
         <div class="err" id="loginErr" role="alert"></div>
-        <button class="btn" type="submit">Sign in</button>
+        <button class="btn" type="submit">Sign in to class <span aria-hidden="true">→</span></button>
       </form>
-    </div>
-    <div class="board" aria-label="This week's timetable">
+      <div class="board" aria-label="This week's timetable">
       <div class="board-top"><div><h3>A week of learning</h3><small>Classes happening across Pathshala</small></div><span class="board-tag">LIVE LEARNING</span></div>
       <div class="row"><b>6:00 PM</b><div>Class 10 Maths <em class="live">Live now</em><span>Algebra basics with Ravi Kumar</span></div></div>
       <div class="row"><b>5:00 PM</b><div>Physics: Motion and Force<span>Tue and Thu with Priya Sharma</span></div></div>
       <div class="row"><b>7:30 AM</b><div>Spoken English<span>Monday to Friday with Arjun Reddy</span></div></div>
       <div class="row"><b>11:00 AM</b><div>Python for Beginners<span>Saturday and Sunday with Arjun Reddy</span></div></div>
+      </div>
     </div>
-  </div></div>
-  <div class="trust"><div class="wrap"><strong>Learn from anywhere</strong><span>Live video lessons</span><span>Ask questions in chat</span><span>One simple sign in</span></div></div>
+  </div></div></section>
   <section class="pad" id="how-it-works"><div class="wrap">
     <div class="section-head"><div class="section-label">Simple by design</div><h2 class="t">Your next class is just three steps away.</h2></div>
     <div class="steps">
